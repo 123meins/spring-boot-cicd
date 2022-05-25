@@ -7,7 +7,7 @@
   tasks:
     - name: Download latest hello-world.jar from nexus
       get_url:
-        url: "http://{{USER}}:{{PASS}}@{{nexusip}}:8081/repository/release/{{groupid}}/{{version}}/hello-world-{{version}}"
+        url: "http://{{USER}}:{{PASS}}@{{nexusip}}:8081/repository/{{repository}}/{{groupid}}/{{version}}/hello-world-{{version}}"
         dest: "/tmp/hello-world-{{version}}"
       register: jardeploy
       tags:
