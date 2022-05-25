@@ -1,4 +1,4 @@
-http://3.238.142.184:8081/repository/release/group/hello-world/32/hello-world-32.jar
+
 - name: Setup Tomcat8 & Deploy Artifact
   hosts: appsrvgrp
   become: yes
