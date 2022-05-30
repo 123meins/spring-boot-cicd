@@ -5,16 +5,16 @@
   vars:
     timestamp: "{{ansible_date_time.date}}_{{ansible_date_time.hour}}_{{ansible_date_time.minute}}"
   tasks:
-    - name: Download latest.jar from nexus
+    - name: Download latest.war from nexus
       get_url:
         url: "{{uploadURL}}"
         dest: "/tmp/{{version}}"
-      register: jardeploy
+      register: wardeploy
       tags:
        - deploy
 
     - stat:
-        path: /usr/local/tomcat8/webapps/ROOT.jar
+        path: /usr/local/tomcat8/webapps/ROOT.war
       register: artifact_stat
       tags:
        - deploy
@@ -37,8 +37,8 @@
         tags:
          - deploy
 
-      - name: copy ROOT.jar with old_ROOT name
-        shell: cp -r ROOT.jar old_ROOT
+      - name: copy ROOT.war with old_ROOT name
+        shell: cp -r ROOT.war old_ROOT
         args:
           chdir: /usr/local/tomcat8/webapps/
 
@@ -48,7 +48,7 @@
           state: absent
         when: archive_info.changed
         loop:
-         - /usr/local/tomcat8/webapps/ROOT.jar
+         - /usr/local/tomcat8/webapps/ROOT.war
         tags:
          - deploy
 
@@ -57,13 +57,13 @@
          - name: Deploy artifact
            copy:
              src: "/tmp/{{version}}"
-             dest: /usr/local/tomcat8/webapps/ROOT.jar
+             dest: /usr/local/tomcat8/webapps/ROOT.war
              remote_src: yes
            register: deploy_info
            tags:
             - deploy
         rescue:
-          - shell: cp -r old_ROOT ROOT.jar
+          - shell: cp -r old_ROOT ROOT
             args:
               chdir: /usr/local/tomcat8/webapps/
 
@@ -81,9 +81,9 @@
       tags:
        - deploy
 
-    - name: Wait until ROOT.jar is extracted to ROOT directory
+    - name: Wait until ROOT.war is extracted to ROOT directory
       wait_for:
-        path: /usr/local/tomcat8/webapps/ROOT.jar
+        path: /usr/local/tomcat8/webapps/ROOT
       tags:
        - deploy
 

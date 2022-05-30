@@ -14,6 +14,7 @@
     <version>1.0.1-SNAPSHOT</version>
 
     <name>hello-world</name>
+    <packaging>war</packaging>
     <description>A simple Spring Boot app to send hello world message to a user</description>
 
     <properties>
@@ -35,6 +36,13 @@
             <artifactId>spring-boot-starter-test</artifactId>
             <scope>test</scope>
         </dependency>
+
+        <dependency>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-war-plugin</artifactId>
+            <version>3.3.2</version>
+            <type>maven-plugin</type>
+          </dependency>
     </dependencies>
 
     <build>
