@@ -14,7 +14,7 @@
        - deploy
 
     - stat:
-        path: /usr/local/tomcat8/webapps/ROOT.war
+        path: /usr/local/tomcat8/webapps/ROOT
       register: artifact_stat
       tags:
        - deploy
@@ -37,8 +37,8 @@
         tags:
          - deploy
 
-      - name: copy ROOT.war with old_ROOT name
-        shell: cp -r ROOT.war old_ROOT
+      - name: copy ROOT with old_ROOT name
+        shell: cp -r ROOT old_ROOT
         args:
           chdir: /usr/local/tomcat8/webapps/
 
@@ -48,6 +48,7 @@
           state: absent
         when: archive_info.changed
         loop:
+         - /usr/local/tomcat8/webapps/ROOT
          - /usr/local/tomcat8/webapps/ROOT.war
         tags:
          - deploy
