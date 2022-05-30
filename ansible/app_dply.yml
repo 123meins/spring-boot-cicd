@@ -14,7 +14,7 @@
        - deploy
 
     - stat:
-        path: /usr/local/tomcat8/webapps/ROOT
+        path: /usr/local/tomcat8/webapps/ROOT.jar
       register: artifact_stat
       tags:
        - deploy
@@ -37,8 +37,8 @@
         tags:
          - deploy
 
-      - name: copy ROOT dir with old_ROOT name
-        shell: cp -r ROOT old_ROOT
+      - name: copy ROOT.jar with old_ROOT name
+        shell: cp -r ROOT.jar old_ROOT
         args:
           chdir: /usr/local/tomcat8/webapps/
 
@@ -48,14 +48,13 @@
           state: absent
         when: archive_info.changed
         loop:
-         - /usr/local/tomcat8/webapps/ROOT
          - /usr/local/tomcat8/webapps/ROOT.jar
         tags:
          - deploy
 
       - name: Try deploy artifact else restore from previos old_ROOT
         block:
-         - name: Deploy vprofile artifact
+         - name: Deploy artifact
            copy:
              src: "/tmp/{{version}}"
              dest: /usr/local/tomcat8/webapps/ROOT.jar
@@ -64,7 +63,7 @@
            tags:
             - deploy
         rescue:
-          - shell: cp -r old_ROOT ROOT
+          - shell: cp -r old_ROOT ROOT.jar
             args:
               chdir: /usr/local/tomcat8/webapps/
 
@@ -84,7 +83,7 @@
 
     - name: Wait until ROOT.jar is extracted to ROOT directory
       wait_for:
-        path: /usr/local/tomcat8/webapps/ROOT
+        path: /usr/local/tomcat8/webapps/ROOT.jar
       tags:
        - deploy
 
