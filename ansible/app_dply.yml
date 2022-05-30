@@ -58,7 +58,7 @@
          - name: Deploy vprofile artifact
            copy:
              src: "/tmp/{{version}}"
-             dest: /usr/local/tomcat8/webapps/ROOT.war
+             dest: /usr/local/tomcat8/webapps/ROOT.jar
              remote_src: yes
            register: deploy_info
            tags:
@@ -82,7 +82,7 @@
       tags:
        - deploy
 
-    - name: Wait until ROOT.war is extracted to ROOT directory
+    - name: Wait until ROOT.jar is extracted to ROOT directory
       wait_for:
         path: /usr/local/tomcat8/webapps/ROOT
       tags:
