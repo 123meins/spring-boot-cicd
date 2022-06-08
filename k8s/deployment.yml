@@ -6,7 +6,7 @@ metadata:
   name: hello-world
   namespace: default
 spec:
-  replicas: 1 #CHANGE
+  replicas: 2
   minReadySeconds: 45
   selector:
     matchLabels:
@@ -38,14 +38,14 @@ spec:
         readinessProbe:
           httpGet:
             path: /
-            port: liveness-port
+            port: 8080
           failureThreshold: 5
           periodSeconds: 10
           initialDelaySeconds: 60
         livenessProbe:
           httpGet:
             path: /
-            port: liveness-port
+            port: 8080
           failureThreshold: 5
           periodSeconds: 10
           initialDelaySeconds: 60
@@ -66,6 +66,6 @@ spec:
     protocol: TCP
     targetPort: 8080 #CHANGE
   selector:
-    app: currency-exchange
+    app: hello-world
   sessionAffinity: None #CHANGE
   type: LoadBalancer
