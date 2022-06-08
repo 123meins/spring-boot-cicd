@@ -8,7 +8,7 @@ variables:
   tag: '$(Build.BuildId)'
 
 stages:
-- stage: Build and Push
+- stage: Build
   displayName: Build image
   jobs:
   - job: Build
@@ -20,7 +20,7 @@ stages:
       displayName: Build an image
       inputs:
         containerRegistry: 'dockerhub'
-        repository: 'cicd/hello-world'
+        repository: 'bittedocker/spring-boot-cicd'
         command: 'buildAndPush'
         Dockerfile: '**/Dockerfile'
         tags: '$(tag)'
@@ -47,4 +47,4 @@ stages:
         kubernetesServiceConnection: 'k8s'
         namespace: 'default'
         manifests: '$(System.ArtifactsDirectory)/k8s/deployment.yml'
-        containers: 'cicd/hello-world:$(tag)'
+        containers: 'bittedocker/spring-boot-cicd:$(tag)'
