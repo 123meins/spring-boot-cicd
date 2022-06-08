@@ -6,5 +6,5 @@ RUN mvn -f /home/app/pom.xml clean package
 
 # copy in war into webapps folder
 FROM tomcat:8-alpine
-COPY --from=build /home/app/target/*.war /usr/local/tomcat/webapps/
+COPY --from=build /home/app/target/*.war /usr/local/tomcat/webapps/ROOT.war
 
