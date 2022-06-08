@@ -2,15 +2,15 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   labels:
-    app: currency-exchange
-  name: currency-exchange
+    app: hello-world
+  name: hello-world
   namespace: default
 spec:
   replicas: 1 #CHANGE
   minReadySeconds: 45
   selector:
     matchLabels:
-      app: currency-exchange
+      app: hello-world
   strategy:
     rollingUpdate:
       maxSurge: 25%
@@ -19,10 +19,10 @@ spec:
   template:
     metadata:
       labels:
-        app: currency-exchange
+        app: hello-world
     spec:
       containers:
-      - name: currency-exchange
+      - name: hello-world
         image: bittedocker/spring-boot-cicd
         imagePullPolicy: IfNotPresent
         ports:
@@ -56,8 +56,8 @@ apiVersion: v1
 kind: Service
 metadata:
   labels: #PODS
-    app: currency-exchange
-  name: currency-exchange
+    app: hello-world
+  name: hello-world
   namespace: default
 spec:
   ports:
