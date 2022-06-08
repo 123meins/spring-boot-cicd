@@ -14,7 +14,7 @@
     <version>1.0.1-SNAPSHOT</version>
 
     <name>hello-world</name>
-    <packaging>war</packaging>
+    <packaging>jar</packaging>
     <description>A simple Spring Boot app to send hello world message to a user</description>
 
     <properties>
