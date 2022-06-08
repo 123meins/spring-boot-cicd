@@ -29,6 +29,11 @@ stages:
         SourceFolder: '$(System.DefaultWorkingDirectory)'
         Contents: '**/*.yml'
         TargetFolder: '$(System.ArtifactsDirectory)'
+    - task: PublishBuildArtifacts@1
+      inputs:
+        PathtoPublish: '$(Build.ArtifactStagingDirectory)'
+        ArtifactName: 'manifests'
+        publishLocation: 'Container'
 
 - stage: Deploy
   displayName: Deploy image
